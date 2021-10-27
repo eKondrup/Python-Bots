@@ -1,0 +1,40 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from selenium.webdriver.common.keys import Keys
+import time
+
+"""
+Brugte https://www.youtube.com/watch?v=VMzmVFA-Gps&ab_channel=Mukeshotwani
+til at debug. Konsol gav mig error DeprecationWarning: executable_path has been deprecated, please pass in a Service object driver = webdriver.Chrome(PATH)
+"""
+
+#Variables
+PATH = "C:\Program Files (x86)\chromedriver.exe"
+s=Service(PATH)
+driver = webdriver.Chrome(service=s)
+wait = WebDriverWait(driver, 10)
+
+
+#find_I_Agree = wait.until(EC.element_to_be_clickable((By.XPATH, '//tp-yt-paper-button[(@id="button") and @class = "style-scope ytd-button-renderer style-primary size-default" ]')))
+#find_I_Agree = wait.until(EC.element_to_be_clickable((By.XPATH, '//a[(@tabindex="-1") and @class = "yt-simple-endpoint style-scope ytd-button-renderer" ]')))
+#find_I_Agree = wait.until(EC.element_to_be_clickable((By.XPATH, '//ytd-button-renderer[(@class = "style-scope ytd-consent-bump-v2-lightbox style-primary size-default") and @text()="I agree")]')))
+#find_I_Agree = wait.until(EC.element_to_be_clickable((By.XPATH, '//yt-formatted-string[(@id="text") and @class = "style-scope ytd-button-renderer style-primary size-default" ]')))
+
+print("hello world")
+driver.get("https://youtube.com")
+time.sleep(2)
+#find_I_Agree = driver.find_element(By.ID, "button")
+find_I_Agree = wait.until(EC.element_to_be_clickable((By.XPATH,"//ytd-button-renderer[@class = 'style-scope ytd-consent-bump-v2-lightbox style-primary size-default']/following-sibling::ytd-button-renderer")))
+print(find_I_Agree.get_attribute('type'))
+#input()
+
+#find_I_Agree.send_keys("\n")
+find_I_Agree.click()
+time.sleep(2)
+
+
+#search = driver.find_element('#search')
